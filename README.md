@@ -42,3 +42,33 @@
       invoke  active_record
       create    db/migrate/20240721050133_create_oders.rb
 ```
+
+### マイグレーションの実施
+```
+> docker compose exec [コンテナ名] bin/rails db:migrate
+```
+
+```
+> docker compose exec app bin/rails db:migrate
+== 20240721050133 CreateOrders: migrating =====================================
+-- create_table(:orders, {:comment=>"注文情報"})
+   -> 0.0028s
+== 20240721050133 CreateOrders: migrated (0.0028s) ============================
+```
+
+### マイグレーションの取り消し
+1つ前にmigrationした内容を取り消してくれる
+```
+> docker compose exec app bin/rails db:rollback
+```
+
+```
+> docker compose exec app bin/rails db:rollback
+== 20240721050133 CreateOrders: reverting =====================================
+-- drop_table(:orders, {:comment=>"注文情報"})
+   -> 0.0016s
+== 20240721050133 CreateOrders: reverted (0.0064s) ============================
+```
+
+### モデルの作成
+app/models配下に[テーブル名.rb]を作成して、アプリがDBとのやり取りをする
