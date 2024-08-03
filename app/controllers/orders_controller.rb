@@ -18,6 +18,11 @@ class OrdersController < ApplicationController
   private # クラス内でのみ使用可能、この下に書かれたメソッドは、外部から呼び出せないようにする
 
   def order_params
-    params.require(:order).permit(:name) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+    params
+      .require(:order)
+      .permit(:name,
+              :email,
+              :telephone,
+              :delivery_address) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end
