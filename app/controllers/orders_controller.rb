@@ -5,6 +5,8 @@ class OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params) # order_paramsから受け取った値を使ってOrderクラスの新しいインスタンスを作成
+
+    return render :new if @order.invalid? # バリデーションエラーがある場合、newアクションを再度実行
   end
 
   def create
