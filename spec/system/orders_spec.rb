@@ -54,7 +54,7 @@ RSpec.describe "Orders", type: :system do
     it '商品を注文できること' do
       visit new_order_path
 
-      fill_in 'order_name', with: name
+      fill_in 'お名前', with: name
       fill_in 'メールアドレス', with: email
       fill_in '電話番号', with: telephone
       fill_in 'お届け先住所', with: delivery_address
