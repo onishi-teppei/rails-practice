@@ -27,6 +27,12 @@
         <%= render partial: 'shared/error_messages', locals: { record: @order, symbol: :delivery_address } %>
       </div>
 
+      <div class="mb-3">
+        <%= f.label :payment_method_id, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <%= f.select :payment_method_id, PaymentMethod.selectable_methods, { include_blank: true }, class: 'form-select' %>
+        <%= render partial: 'shared/error_messages', locals: { record: @order, symbol: :payment_method_id } %>
+      </div>
+
       <div class='d-grid col-md-6 mx-auto mb-3'>
         <%= f.button '確認画面へ', class: 'btn btn-lg btn-primary' %>
       </div>

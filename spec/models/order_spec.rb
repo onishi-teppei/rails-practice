@@ -6,12 +6,14 @@ RSpec.describe Order, type: :model do
     let(:email) { 'test@example.com' }
     let(:telephone) { '09012345678' }
     let(:delivery_address) { '東京都渋谷区亀有公園前1-2-1' }
+    let(:payment_method_id) { 1 }
     let(:params) do
       {
         name:,
         email:,
         telephone:,
-        delivery_address:
+        delivery_address:,
+        payment_method_id:
       }
     end
 
@@ -71,6 +73,12 @@ RSpec.describe Order, type: :model do
       let(:delivery_address) { '' }
 
       it { is_expected.to eq false }
+    end
+
+    context '支払い方法が未入力の場合' do
+      let(:payment_method_id) { nil }
+
+      it { is_expected.to be false }
     end
   end
 end

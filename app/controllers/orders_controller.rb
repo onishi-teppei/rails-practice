@@ -35,6 +35,7 @@ class OrdersController < ApplicationController
       .permit(:name,
               :email,
               :telephone,
-              :delivery_address) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              :delivery_address,
+              :payment_method_id) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end

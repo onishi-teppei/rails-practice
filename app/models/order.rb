@@ -1,10 +1,13 @@
 require 'nkf'
 
 class Order < ApplicationRecord
+  belongs_to :payment_method
+
   validates :name, presence: true, length: { maximum: 40 }
   validates :email, presence: true, length: { maximum: 100 }, email_format: true
   validates :telephone, presence: true, length: { maximum: 11 }, numericality: { only_integer: true }
   validates :delivery_address, presence: true, length: { maximum: 100 }
+  validates :payment_method_id, presence: true
 
   after_initialize :format_telephone
   after_initialize :format_email
