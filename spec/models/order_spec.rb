@@ -7,13 +7,15 @@ RSpec.describe Order, type: :model do
     let(:telephone) { '09012345678' }
     let(:delivery_address) { '東京都渋谷区亀有公園前1-2-1' }
     let(:payment_method_id) { 1 }
+    let(:other_comment) { "テストコメント" }
     let(:params) do
       {
         name:,
         email:,
         telephone:,
         delivery_address:,
-        payment_method_id:
+        payment_method_id:,
+        other_comment:
       }
     end
 
@@ -78,7 +80,25 @@ RSpec.describe Order, type: :model do
     context '支払い方法が未入力の場合' do
       let(:payment_method_id) { nil }
 
-      it { is_expected.to be false }
+      it { is_expected.to eq false }
+    end
+
+    context 'その他・ご要望が空白の場合' do
+      let(:other_comment) { '' }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'その他・ご要望が1000文字の場合' do
+      let(:other_comment) { 'あ' * 1_000 }
+
+      it { is_expected.to eq true }
+    end
+
+    context 'その他・ご要望が1000文字より多い場合' do
+      let(:other_comment) { 'あ' * 1_001 }
+
+      it { is_expected.to eq false }
     end
   end
 end

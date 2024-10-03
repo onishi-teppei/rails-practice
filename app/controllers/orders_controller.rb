@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params) # order_paramsから受け取った値を使ってOrderクラスの新しいインスタンスを作成。戻るボタンを押した場合でも、入力した値を保持する
     return render :new if params[:button] == 'back' # ボタンが「戻る」の場合、newアクションを再度実行
+
     if @order.save # 保存に成功した場合、completeアクションにリダイレクト
       session[:order_id] = @order.id
       return redirect_to complete_orders_url
@@ -36,6 +37,7 @@ class OrdersController < ApplicationController
               :email,
               :telephone,
               :delivery_address,
-              :payment_method_id) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              :payment_method_id,
+              :other_comment) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end

@@ -5,6 +5,7 @@ RSpec.describe "Orders", type: :system do
   let(:email) { 'test@example.com' }
   let(:telephone) { '0312345678' }
   let(:delivery_address) { '東京都新宿区亀有公園前' }
+  let(:other_comment) { 'テストコメント' }
 
   it '商品を注文できること' do
     visit new_order_path
@@ -14,6 +15,8 @@ RSpec.describe "Orders", type: :system do
     fill_in '電話番号', with: telephone
     fill_in 'お届け先住所', with: delivery_address
     select '銀行振込', from: '支払い方法'
+
+    fill_in 'その他・ご要望', with: other_comment
 
     click_on '確認画面へ'
 
@@ -34,6 +37,7 @@ RSpec.describe "Orders", type: :system do
     expect(order.telephone).to eq telephone
     expect(order.delivery_address).to eq delivery_address
     expect(order.payment_method_id).to eq 2
+    expect(order.other_comment).to eq other_comment
   end
 
   context '入力情報に不備がある場合' do
@@ -45,6 +49,7 @@ RSpec.describe "Orders", type: :system do
       fill_in '電話番号', with: '090123456789'
       fill_in 'お届け先住所', with: delivery_address
       select '銀行振込', from: '支払い方法'
+      fill_in 'その他・ご要望', with: other_comment
 
       click_on '確認画面へ'
 
@@ -62,6 +67,7 @@ RSpec.describe "Orders", type: :system do
       fill_in '電話番号', with: telephone
       fill_in 'お届け先住所', with: delivery_address
       select '銀行振込', from: '支払い方法'
+      fill_in 'その他・ご要望', with: other_comment
 
       click_on '確認画面へ'
 
@@ -76,6 +82,7 @@ RSpec.describe "Orders", type: :system do
       expect(page).to have_field '電話番号', with: telephone
       expect(page).to have_field 'お届け先住所', with: delivery_address
       expect(page).to have_select '支払い方法', selected: '銀行振込'
+      expect(page).to have_field 'その他・ご要望', with: other_comment
 
       click_on '確認画面へ'
 
@@ -96,6 +103,7 @@ RSpec.describe "Orders", type: :system do
       expect(order.telephone).to eq telephone
       expect(order.delivery_address).to eq delivery_address
       expect(order.payment_method_id).to eq 2
+      expect(order.other_comment).to eq other_comment
     end
   end
 end

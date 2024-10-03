@@ -33,6 +33,12 @@
         <%= render partial: 'shared/error_messages', locals: { record: @order, symbol: :payment_method_id } %>
       </div>
 
+      <div class="mb-3">
+        <%= f.label :other_comment, class: 'form-label border-start border-primary border-4 ps-1' %>
+        <%= f.text_area :other_comment, size: '60x6', placeholder: 'その他、ご要望がありましたらご入力ください。', class: 'form-control' %>
+        <%= render partial: 'shared/error_messages', locals: { record: @order, symbol: :other_comment } %>
+      </div> 
+
       <div class='d-grid col-md-6 mx-auto mb-3'>
         <%= f.button '確認画面へ', class: 'btn btn-lg btn-primary' %>
       </div>
