@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_03_110040) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_04_105040) do
   create_table "orders", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -19,7 +19,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_110040) do
     t.string "telephone", null: false
     t.string "delivery_address", null: false
     t.integer "payment_method_id"
-    t.string "other_comment"
+    t.string "other_comment", limit: 1000, default: "", null: false
+    t.boolean "direct_mail_enabled", null: false
     t.index ["payment_method_id"], name: "index_orders_on_payment_method_id"
   end
 
