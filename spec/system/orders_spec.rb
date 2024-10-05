@@ -15,8 +15,8 @@ RSpec.describe "Orders", type: :system do
     fill_in '電話番号', with: telephone
     fill_in 'お届け先住所', with: delivery_address
     select '銀行振込', from: '支払い方法'
-
     fill_in 'その他・ご要望', with: other_comment
+    choose '配信を希望する'
 
     click_on '確認画面へ'
 
@@ -38,6 +38,7 @@ RSpec.describe "Orders", type: :system do
     expect(order.delivery_address).to eq delivery_address
     expect(order.payment_method_id).to eq 2
     expect(order.other_comment).to eq other_comment
+    expect(order.direct_mail_enabled).to eq true
   end
 
   context '入力情報に不備がある場合' do
@@ -50,6 +51,7 @@ RSpec.describe "Orders", type: :system do
       fill_in 'お届け先住所', with: delivery_address
       select '銀行振込', from: '支払い方法'
       fill_in 'その他・ご要望', with: other_comment
+      choose '配信を希望する'
 
       click_on '確認画面へ'
 
@@ -68,6 +70,7 @@ RSpec.describe "Orders", type: :system do
       fill_in 'お届け先住所', with: delivery_address
       select '銀行振込', from: '支払い方法'
       fill_in 'その他・ご要望', with: other_comment
+      choose '配信を希望する'
 
       click_on '確認画面へ'
 
@@ -83,6 +86,7 @@ RSpec.describe "Orders", type: :system do
       expect(page).to have_field 'お届け先住所', with: delivery_address
       expect(page).to have_select '支払い方法', selected: '銀行振込'
       expect(page).to have_field 'その他・ご要望', with: other_comment
+      expect(page).to have_checked_field('配信を希望する')
 
       click_on '確認画面へ'
 
@@ -104,6 +108,7 @@ RSpec.describe "Orders", type: :system do
       expect(order.delivery_address).to eq delivery_address
       expect(order.payment_method_id).to eq 2
       expect(order.other_comment).to eq other_comment
+      expect(order.direct_mail_enabled).to eq true
     end
   end
 end

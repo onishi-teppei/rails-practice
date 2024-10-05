@@ -38,6 +38,7 @@ class OrdersController < ApplicationController
               :telephone,
               :delivery_address,
               :payment_method_id,
-              :other_comment) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              :other_comment,
+              :direct_mail_enabled) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end
