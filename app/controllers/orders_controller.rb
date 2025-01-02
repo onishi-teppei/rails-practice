@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def new
     @order = Order.new # Orderクラスの新しいインスタンスを作成
+    @order.order_products.build # order_productsの新しいインスタンスを作成
   end
 
   def confirm
@@ -40,6 +41,7 @@ class OrdersController < ApplicationController
               :payment_method_id,
               :other_comment,
               :direct_mail_enabled,
-              inflow_source_ids: []) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              inflow_source_ids: [],
+              order_products_attributes: %i[product_id quantity]) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end
