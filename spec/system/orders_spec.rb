@@ -16,6 +16,8 @@ RSpec.describe "Orders", type: :system do
     select '銀行振込', from: '支払い方法'
     fill_in 'その他・ご要望', with: other_comment
     choose '配信を希望する'
+    check '検索エンジン'
+    check 'その他'
 
     click_on '確認画面へ'
 
@@ -38,6 +40,7 @@ RSpec.describe "Orders", type: :system do
     expect(order.payment_method_id).to eq 2
     expect(order.other_comment).to eq other_comment
     expect(order.direct_mail_enabled).to eq true
+    expect(order.inflow_source_ids).to eq [1, 5]
   end
 
   context '入力情報に不備がある場合' do
@@ -51,6 +54,8 @@ RSpec.describe "Orders", type: :system do
       select '銀行振込', from: '支払い方法'
       fill_in 'その他・ご要望', with: other_comment
       choose '配信を希望する'
+      check '検索エンジン'
+      check 'その他'
 
       click_on '確認画面へ'
 
@@ -70,6 +75,8 @@ RSpec.describe "Orders", type: :system do
       select '銀行振込', from: '支払い方法'
       fill_in 'その他・ご要望', with: other_comment
       choose '配信を希望する'
+      check '検索エンジン'
+      check 'その他'
 
       click_on '確認画面へ'
 
@@ -86,6 +93,12 @@ RSpec.describe "Orders", type: :system do
       expect(page).to have_select '支払い方法', selected: '銀行振込'
       expect(page).to have_field 'その他・ご要望', with: other_comment
       expect(page).to have_checked_field('配信を希望する')
+
+      expect(page).to have_checked_field('検索エンジン')
+      expect(page).to have_unchecked_field('知人の紹介')
+      expect(page).to have_unchecked_field('新聞・雑誌')
+      expect(page).to have_unchecked_field('情報サイト')
+      expect(page).to have_checked_field('その他')
 
       click_on '確認画面へ'
 
@@ -108,6 +121,7 @@ RSpec.describe "Orders", type: :system do
       expect(order.payment_method_id).to eq 2
       expect(order.other_comment).to eq other_comment
       expect(order.direct_mail_enabled).to eq true
+      expect(order.inflow_source_ids).to eq [1, 5]
     end
   end
 end

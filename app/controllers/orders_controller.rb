@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
               :delivery_address,
               :payment_method_id,
               :other_comment,
-              :direct_mail_enabled) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              :direct_mail_enabled,
+              inflow_source_ids: []) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
   end
 end
