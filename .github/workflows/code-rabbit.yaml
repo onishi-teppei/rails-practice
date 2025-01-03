@@ -25,6 +25,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
+          openai_light_model: gpt-4o
+          openai_heavy_model: gpt-4o
           language: ja-JP
           summarize: |
             次のmarkdownフォーマット形式を使用して、本PRの要約を出力します。
