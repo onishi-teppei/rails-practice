@@ -6,5 +6,4 @@ class OrderProduct < ApplicationRecord
   validates :quantity, presence: true, numericality: { in: 1..20 }
 
   delegate :name, to: :product
-
 end
