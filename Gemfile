@@ -66,8 +66,9 @@ group :development, :test do
 
   # 以下、コースで追加したgem ここから
   # ソースコードの静的コード解析 bundle exec rubocopでチェックできます。
-  gem 'rubocop', require: false
+  gem 'rubocop'
   gem 'rubocop-performance'
+  gem 'rubocop-rails'
   # 以下、コースで追加したgem ここまで
 end
 
