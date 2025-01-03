@@ -1,7 +1,8 @@
 name: Check RuboCop
 on:
-  push:
   pull_request:
+  pull_request_review_comment:
+    types: [created]
 
 jobs:
   rubocop:
