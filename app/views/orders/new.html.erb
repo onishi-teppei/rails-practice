@@ -48,7 +48,16 @@
               <%= pf.number_field :quantity, size: 4, placeholder: '数量', class: 'form-control' %>
               <%= render partial: 'shared/error_messages', locals: { record: pf.object, symbol: :quantity } %>
             </div>
+
+            <% if @order.order_products.size > 1 %>
+              <div class="d-grid d-md-flex justify-content-end">
+                <%= f.button '削除', name: 'delete_product', value: pf.index, class: 'btn btn-danger' %>
+              </div>
+            <% end %>
           </div>
+        <% end %>
+        <% if @order.order_products.size < 3 %>
+          <%= f.button '商品を追加する', name: 'add_product', class: 'btn btn-primary' %>
         <% end %>
       </div>
 
