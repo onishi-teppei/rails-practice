@@ -14,6 +14,10 @@ RSpec.describe "Orders", type: :system do
     fill_in '電話番号', with: telephone
     fill_in 'お届け先住所', with: delivery_address
     select '銀行振込', from: '支払い方法'
+
+    select 'たのしいオレンジ(200円/個)', from: '商品'
+    fill_in '数量', with: 3
+
     fill_in 'その他・ご要望', with: other_comment
     choose '配信を希望する'
     check '検索エンジン'
@@ -52,6 +56,10 @@ RSpec.describe "Orders", type: :system do
       fill_in '電話番号', with: '090123456789'
       fill_in 'お届け先住所', with: delivery_address
       select '銀行振込', from: '支払い方法'
+
+      select 'たのしいオレンジ(200円/個)', from: '商品'
+      fill_in '数量', with: 3
+
       fill_in 'その他・ご要望', with: other_comment
       choose '配信を希望する'
       check '検索エンジン'
