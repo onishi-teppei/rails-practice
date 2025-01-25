@@ -32,6 +32,30 @@
       </div>
       <%= @order.payment_method.name %>
     </div>
+
+    <div class="mb-3">
+      <div class="form-label border-start border-primary border-4 ps-1">
+        <%= t('activerecord.attributes.order.order_products') %>
+      </div>
+
+      <% @order.order_products.each do |order_product| %>
+        <div class="border border-secondary border-1 rounded p-3 mb-3">
+          <div class="mb-3">
+            <div class="form-label border-start border-primary border-2 ps-1">
+              <%= t('activerecord.attributes.order_product.product_id') %>
+            </div>
+            <%= order_product.name_and_price_text %>
+          </div>
+
+          <div class="form-label border-start border-primary border-2 ps-1">
+            <%= t('activerecord.attributes.order_product.quantity') %>
+          </div>
+          <%= order_product.quantity %>
+        </div>
+      <% end %>
+      <span class="fs-5 fw-bold">合計金額: <%= number_to_currency(@order.total_price) %>(税込)</span>
+    </div>
+
     <div class="mb-3">
       <div class="form-label border-start border-primary border-4 ps-1">
         <%= t('activerecord.attributes.order.other_comment') %>
@@ -67,6 +91,11 @@
     <%= f.hidden_field :direct_mail_enabled %>
     <% @order.inflow_source_ids.each do |inflow_source_id| %>
       <%= hidden_field_tag 'order[inflow_source_ids][]', inflow_source_id %>
+    <% end %>
+
+    <%= f.fields_for :order_products do |pf| %>
+      <%= pf.hidden_field :product_id %>
+      <%= pf.hidden_field :quantity %>
     <% end %>
 
     <div class='d-grid col-md-6 mx-auto mb-3'>

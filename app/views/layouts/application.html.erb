@@ -12,5 +12,25 @@
 
   <body>
     <%= yield %>
+    <link rel="stylesheet" href="https://mitsuba-studio.com/app_scenario_develop/iframe_chat/css/chatbox.css">
+    <!--クライアント様用　カスタムCSS 管理画面とファイルから-->
+    <link rel="stylesheet" href="https://mitsuba-studio.com/app_scenario_develop/custom_css/custom.css">
+    <link rel="stylesheet" href="/app_scenario_develop/chatwindow/get_chatwindow_custom_css">
+
+    <div id="js_chatbox_area_position" class="my-chatbox-area-position">
+    <div id="js_chatbox_area" class="my-chatbox-area">
+    <div class="my-chatbox-header">
+    <div>
+    テスト </div>
+    <div>
+    <img width="40" class="js_chatbox_reload_btn my-chatbox-hide-btn" src="https://mitsuba-studio.com/app_scenario_develop/iframe_chat/img/home_icon.svg">
+    <img width="40" class="js_chatbox_hide_btn my-chatbox-hide-btn" src="https://mitsuba-studio.com/app_scenario_develop/iframe_chat/img/batu_icon.svg">
+    </div>
+    </div>
+    <iframe src="https://mitsuba-studio.com/app_scenario_develop/chats/index/?mode=iframe" class="js_chatbot_iframe my-chatbox-iframe" frameborder="0" ></iframe>
+    </div>
+    </div>
+    <script src="https://mitsuba-studio.com/app_scenario_develop/iframe_chat/js/my_function.js"></script>
+    <script src="https://mitsuba-studio.com/app_scenario_develop/custom_js/custom.js?v=2"></script>
   </body>
 </html>

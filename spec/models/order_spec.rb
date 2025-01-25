@@ -1,6 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  describe '#total_price' do
+    let(:params) do
+      {
+        order_products_attributes: [
+          {
+            product_id: 1,
+            quantity: 3
+          },
+          {
+            product_id: 2,
+            quantity: 2
+          }
+        ]
+      }
+    end
+
+    subject { Order.new(params).total_price }
+
+    it { is_expected.to be 700 + 70 }
+
+    context '商品がひとつも選択されていない場合' do
+      let(:params) do
+        {
+          order_products_attributes: []
+        }
+      end
+
+      it { is_expected.to be 0 }
+    end
+
+    context '消費税に端数が出た場合' do
+      before do
+        create(:product, id: 999, price: 299) #factorybotを使ってテストデータを作成する方法
+      end
+
+      let(:params) do
+        {
+          order_products_attributes: [
+            {
+              product_id: 999,
+              quantity: 1
+            }
+          ]
+        }
+      end
+
+      # 端数は一律で切り上げ
+      it { is_expected.to be 329 }
+    end
+  end
+
   describe '#valid?' do
     let(:name) { 'サンプルマン' }
     let(:email) { 'test@example.com' }

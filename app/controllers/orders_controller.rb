@@ -1,10 +1,20 @@
 class OrdersController < ApplicationController
   def new
     @order = Order.new # Orderクラスの新しいインスタンスを作成
+    @order.order_products.build # order_productsの新しいインスタンスを作成
   end
 
   def confirm
     @order = Order.new(order_params) # order_paramsから受け取った値を使ってOrderクラスの新しいインスタンスを作成
+    if params.key?(:add_product)
+      @order.order_products << OrderProduct.new
+      return render :new
+    end
+
+    if params.key?(:delete_product)
+      filter_order_products
+      return render :new
+    end
 
     return render :new if @order.invalid? # バリデーションエラーがある場合、newアクションを再度実行
   end
@@ -40,6 +50,13 @@ class OrdersController < ApplicationController
               :payment_method_id,
               :other_comment,
               :direct_mail_enabled,
-              inflow_source_ids: []) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+              inflow_source_ids: [],
+              order_products_attributes: %i[product_id quantity]) # permitを使うことで、指定したパラメータ以外を受け付けないようにしている
+  end
+
+  def filter_order_products
+    @order.order_products = @order.order_products
+                                  .reject
+                                  .with_index { |_, index| index == params[:delete_product].to_i }
   end
 end
