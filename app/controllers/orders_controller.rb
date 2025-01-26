@@ -24,6 +24,7 @@ class OrdersController < ApplicationController
     return render :new if params[:button] == 'back' # ボタンが「戻る」の場合、newアクションを再度実行
 
     if @order.save # 保存に成功した場合、completeアクションにリダイレクト
+      OrderMailer.mail_to_user(@order.id).deliver_later
       session[:order_id] = @order.id
       return redirect_to complete_orders_url
     end
